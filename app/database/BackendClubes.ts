@@ -1,11 +1,11 @@
 import { Client } from 'pg'
 
-const Clubes = new Client({
+const BackendClubes = new Client({
     port: 5432,
     host: 'localhost',
     password: 'root',
     user: 'postgres',
     database: 'Clubes'
 })
-Clubes.connect()
-export default Clubes
+BackendClubes.connect()
+export default BackendClubes
