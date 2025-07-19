@@ -1,5 +1,4 @@
 import EstadioService from "../service/EstadioService.ts"
-// instancia
 
 const estadioService = new EstadioService()
 
