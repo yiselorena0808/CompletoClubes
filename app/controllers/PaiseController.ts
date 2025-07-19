@@ -1,5 +1,5 @@
 import PaiseService from "../service/PaiseService.ts"
-//instancia
+
 const paisService = new PaiseService()
 
 export default class PaiseController {
