@@ -53,16 +53,78 @@ export default class JugadorController {
       return response.status(500).json({ error: error.message })
     }
   }
+
   async listarPorPais({ params, response }) {
-    try {
-      const data = await this.service.listarPorPaisOrdenado(Number(params.id))
-      return response.json(data)
-    } catch (error) {
-      console.log('Error en listarPorPais:', error)
-      return response.status(500).json({ error: error.message })
-    }
+  try {
+    // Llama al servicio 'listarPorPaisOrdenado' y pasa el parámetro 'id' de la URL como un número
+    const data = await this.service.listarPorPaisOrdenado(Number(params.id))
+
+    // Si la consulta fue exitosa, devuelve los datos en formato JSON
+    return response.json(data)
+  } catch (error) {
+    // Si ocurre un error, lo muestra en la consola para el registro
+    console.log('Error en listarPorPais:', error)
+
+    // Devuelve un error con código 500 (error en el servidor) y el mensaje de error
+    return response.status(500).json({ error: error.message })
   }
-  
+}
+async listarConClubYPais({ response }) {
+  try {
+    // Llama al servicio 'listarJugadoresConClubYPais' para obtener jugadores con su club y país
+    const datos = await this.service.listarJugadoresConClubYPais()
+
+    // Si la consulta fue exitosa, devuelve los datos en formato JSON
+    return response.json({ datos })
+  } catch (error) {
+    // Si ocurre un error, lo muestra en la consola para el registro
+    console.error('Error en listarConClubYPais:', error)
+
+    // Devuelve un error con código 500 (error en el servidor) y el mensaje de error
+    return response.status(500).json({ error: error.message })
+  }
+}
+
+async estadisticasPorClub({ response }) {
+  try {
+    // Llama al servicio 'contarPorClub' para obtener las estadísticas de jugadores por club
+    const datos = await this.service.contarPorClub()
+
+    // Si la consulta fue exitosa, devuelve los datos en formato JSON
+    return response.json({ datos })
+  } catch (error) {
+    // Si ocurre un error, devuelve un error con código 500 (error en el servidor) y el mensaje de error
+    return response.status(500).json({ error: error.message })
+  }
+}
+
+
+  async listarConRelaciones({ response }) {
+  try {
+    const datos = await this.service.listarJugadoresConRelaciones()
+    return response.json({ datos })
+  } catch (error) {
+    return response.status(500).json({ error: error.message })
+  }
+}
+
+async jugadoresNombreYDorsal({ response }) {
+  try {
+    const datos = await this.service.listarNombreYDorsal()
+    return response.json({ datos })
+  } catch (error) {
+    return response.status(500).json({ error: error.message })
+  }
+}
+
+
+async paginacion({request,response}){
+  const page=request.input('page',1)
+  const limit=10
+  const data = await this.service.paginarJugadores(page,limit)
+  return response.json(data)
+}
+
 
 }
 
