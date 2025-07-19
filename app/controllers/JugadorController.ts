@@ -62,6 +62,7 @@ export default class JugadorController {
       return response.status(500).json({ error: error.message })
     }
   }
+  
 
 }
 
